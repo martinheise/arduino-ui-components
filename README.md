@@ -36,7 +36,7 @@ button.setPressedHandler(callbackBtn, 1);
 bool value = button.getValue();
 ```
 
-For usage also see [examples/button.cpp](examples/button.cpp) and [examples/led-states.cpp](examples/led-states.cpp).
+For usage also see [Button example](examples/Button/Button.ino) and [LedStates example](examples/LedStates/LedStates.ino).
 
 ### Control
 
@@ -60,7 +60,7 @@ control.setChangeHandler(controlValueChange, 1);
 int value = control.getValue();
 ```
 
-For usage also see [examples/control.cpp](examples/control.cpp).
+For usage also see [Control example](examples/Control/Control.ino).
 
 ### LED indicator
 
@@ -81,7 +81,7 @@ led.setStatus(Indicator::OFF);
 led.notificationBlink();
 ```
 
-Timing and blinking speeds can be configured by static variables – see [examples/led-states.cpp](examples/led-states.cpp).
+Timing and blinking speeds can be configured by static variables – see [LedStates example](examples/LedStates/LedStates.ino).
 
 ### RGB indicator
 
@@ -98,4 +98,4 @@ rgb.setStatus(Indicator::BLINK);
 
 It uses the same configuration values as `LED Indicator` class.
 
-For usage also see [examples/select-color.cpp](examples/select-color.cpp).
+For usage also see [SelectColor example](examples/SelectColor/SelectColor.ino).
