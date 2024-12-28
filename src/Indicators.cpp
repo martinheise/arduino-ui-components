@@ -104,7 +104,6 @@ RGBLedIndicator::rgbColor RGBLedIndicator::getColor() {
     return color;
 }
 
-// Todo: check if this the correct way, or do we need to copy the arguments?
 void RGBLedIndicator::setColor(RGBLedIndicator::rgbColor c) {
     color = c;
 }

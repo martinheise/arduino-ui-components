@@ -10,11 +10,17 @@ unsigned int Control::inputRange{1023};
 unsigned int Control::inputEdges{5};
 
 
-Control::Control(uint8_t p) : pin(p) {}
+Control::Control(uint8_t p) : pin(p) {
+    pinMode(p, INPUT);
+}
 
-Control::Control(uint8_t p, int min, int max) : pin(p), minValue(min), maxValue(max) {}
+Control::Control(uint8_t p, int min, int max) : pin(p), minValue(min), maxValue(max) {
+    pinMode(p, INPUT);
+}
 
-Control::Control(uint8_t p, int min, int max, bool pm) : pin(p), minValue(min), maxValue(max), passThroughMode(pm) {}
+Control::Control(uint8_t p, int min, int max, bool pm) : pin(p), minValue(min), maxValue(max), passThroughMode(pm) {
+    pinMode(p, INPUT);
+}
 
 
 void Control::setChangeHandler(ChangeCallback fptr) {

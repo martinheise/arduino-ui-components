@@ -5,6 +5,7 @@ unsigned int Button::debounceTime{20};
 
 Button::Button(uint8_t p) {
     pin = p;
+    pinMode(p, INPUT);
 }
 
 void Button::setPressedHandler(ButtonCallback fptr) {
