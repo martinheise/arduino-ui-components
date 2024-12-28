@@ -65,7 +65,7 @@ For usage also see [Control example](examples/Control/Control.ino).
 ### LED indicator
 
 An LED indicator controls the state of an LED connected to a digital output pin.
-Apart from basic on/off states this includes slow and fast blinking modes, and notification trigger: fast blinking that reverts to the original state after a defined time. 
+Apart from basic on/off states this includes slow and fast blinking modes, a notification trigger (fast blinking that reverts to the original state after a defined time) and a single flash. 
 
 ```
 // initialize with pin number
@@ -79,6 +79,10 @@ led.setStatus(Indicator::OFF);
 ...
 // trigger a notification
 led.notificationBlink();
+...
+// trigger a single short flash
+led.singleFlash();
+
 ```
 
 Timing and blinking speeds can be configured by static variables – see [LedStates example](examples/LedStates/LedStates.ino).

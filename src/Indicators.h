@@ -22,6 +22,8 @@ public:
     status getStatus();
     /// blink for a short time and revert to currStatus then
     void notificationBlink();
+    /// short singleFlash and revert to currStatus then
+    void singleFlash();
     /// update the indicator, usually called from main loop()
     void loop();
     /// configuration: blink on time (ms)
@@ -34,12 +36,16 @@ public:
     static unsigned int fastBlinkOffTime;
     /// configuration: duration of notificationBlink (ms)
     static unsigned int notificationBlinkTime;
+    /// configuration: duration of singleFlash (ms)
+    static unsigned int singleFlashTime;
 private:
     status currStatus{OFF};
     virtual void switchOn();
     virtual void switchOff();
     // start time of notification blink
     unsigned long notificationBlinkStart{0};
+    // start time of singleFlash
+    unsigned long singleFlashStart{0};
     // static variables for global/synced currStatus
     static unsigned long blinkStart;
     static unsigned long fastBlinkStart;

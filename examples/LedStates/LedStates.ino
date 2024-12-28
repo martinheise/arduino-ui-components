@@ -36,14 +36,18 @@ void callbackBtn(byte id) {
 }
 
 /**
- * button pressed long: notification blink of LED
+ * button pressed long: trigger special functions
  * @param id
  */
 void callbackBtnLong(byte id) {
     Serial.print("long pressed button with id ");
     Serial.print(id, DEC);
     Serial.println();
-    led.notificationBlink();
+    if (led.getStatus() == Indicator::OFF) {
+        led.singleFlash();
+    } else {
+        led.notificationBlink();
+    }
 }
 
 void setup() {
@@ -63,6 +67,8 @@ void setup() {
     Indicator::fastBlinkOffTime = 200;
     // duration for notification blink, until state is reverted
     Indicator::notificationBlinkTime = 5000;
+    // duration for single flash
+    Indicator::singleFlashTime = 100;
 }
 
 void loop() {
