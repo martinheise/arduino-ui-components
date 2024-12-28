@@ -9,6 +9,7 @@ unsigned int Indicator::blinkOffTime = 300;
 unsigned int Indicator::fastBlinkOnTime = 150;
 unsigned int Indicator::fastBlinkOffTime = 150;
 unsigned int Indicator::notificationBlinkTime = 1800;
+unsigned int Indicator::singleFlashTime = 100;
 
 void Indicator::setStatus(Indicator::status s) {
     currStatus = s;
@@ -40,6 +41,10 @@ void Indicator::notificationBlink() {
     notificationBlinkStart = millis();
 }
 
+void Indicator::singleFlash() {
+    singleFlashStart = millis();
+}
+
 void Indicator::loop() {
 
     bool state = (currStatus == ON);
@@ -51,6 +56,14 @@ void Indicator::loop() {
             notificationBlinkStart = 0;
         } else {
             state = blinkTime % (fastBlinkOnTime + fastBlinkOffTime) < fastBlinkOnTime;
+        }
+    } else if (singleFlashStart > 0) {
+        unsigned long blinkTime = millis() - singleFlashStart;
+        // singleFlash ended
+        if (blinkTime > singleFlashTime) {
+            singleFlashStart = 0;
+        } else {
+            state = currStatus != ON;
         }
     } else if (currStatus == BLINK) {
         state = (millis() - blinkStart) % (blinkOnTime + blinkOffTime) < blinkOnTime;
@@ -104,7 +117,6 @@ RGBLedIndicator::rgbColor RGBLedIndicator::getColor() {
     return color;
 }
 
-// Todo: check if this the correct way, or do we need to copy the arguments?
 void RGBLedIndicator::setColor(RGBLedIndicator::rgbColor c) {
     color = c;
 }
