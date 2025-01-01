@@ -135,6 +135,6 @@ void RGBLedIndicator::switchOn() {
 
 void RGBLedIndicator::switchOff() {
     for (unsigned char p : pins) {
-        digitalWrite(p, LOW);
+        analogWrite(p, LOW);
     }
 }
