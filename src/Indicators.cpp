@@ -70,10 +70,15 @@ void Indicator::loop() {
     } else if (currStatus == FAST_BLINK) {
         state = (millis() - fastBlinkStart) % (fastBlinkOnTime + fastBlinkOffTime) < fastBlinkOnTime;
     }
-    if (state) {
-        switchOn();
-    } else {
-        switchOff();
+
+    if (state != switchState || forceUpdate) {
+        if (state) {
+            switchOn();
+        } else {
+            switchOff();
+        }
+        switchState = state;
+        forceUpdate = false;
     }
 }
 
@@ -119,12 +124,14 @@ RGBLedIndicator::rgbColor RGBLedIndicator::getColor() {
 
 void RGBLedIndicator::setColor(RGBLedIndicator::rgbColor c) {
     color = c;
+    forceUpdate = true;
 }
 
 void RGBLedIndicator::setColor(uint8_t r, uint8_t g, uint8_t b) {
     color.r = r;
     color.g = g;
     color.b = b;
+    forceUpdate = true;
 }
 
 void RGBLedIndicator::switchOn() {
