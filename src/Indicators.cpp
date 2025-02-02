@@ -128,10 +128,10 @@ void RGBLedIndicator::setColor(RGBLedIndicator::rgbColor c) {
 }
 
 void RGBLedIndicator::setColor(uint8_t r, uint8_t g, uint8_t b) {
+    forceUpdate = forceUpdate || color.r != r || color.g != g || color.b != b;
     color.r = r;
     color.g = g;
     color.b = b;
-    forceUpdate = true;
 }
 
 void RGBLedIndicator::switchOn() {
