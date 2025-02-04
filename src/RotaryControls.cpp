@@ -17,6 +17,23 @@ void RotaryControl::setMinMax(int min, int max) {
     maxValue = max;
 }
 
+void RotaryControl::setStep(int st) {
+    step = st;
+}
+
+int RotaryControl::getStep() {
+    return step;
+}
+
+void RotaryControl::setRoundToStep(bool rts) {
+    roundToStep = rts;
+}
+
+bool RotaryControl::getRoundToStep() {
+    return roundToStep;
+}
+
+
 void RotaryControl::setValue(int val) {
     value = constrain(val, minValue, maxValue);
 }
@@ -33,9 +50,12 @@ void RotaryControl::loop() {
         int val = value;
         if (dir) {
             // increment
-            val++;
+            val = val + step;
         } else {
-            val--;
+            val = val - step;
+        }
+        if (roundToStep && (val % step) > 0) {
+            val = int(round(val / step)) * step;
         }
         val = constrain(val, minValue, maxValue);
         if (val != value) {

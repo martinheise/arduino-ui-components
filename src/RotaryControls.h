@@ -25,6 +25,10 @@ public:
     RotaryControl(uint8_t pclk, uint8_t pdt, int min, int max);
     /// set output value range
     void setMinMax(int min, int max);
+    void setStep(int st);
+    int getStep();
+    void setRoundToStep(bool rts);
+    bool getRoundToStep();
 
     /// set current value
     void setValue(int val);
@@ -43,6 +47,8 @@ private:
     int value{0};
     int minValue{0};
     int maxValue{255};
+    int step{1};
+    bool roundToStep{false};
     RotaryChangeCallback _changeCallback = nullptr;
     byte _callbackId{0};
 };
