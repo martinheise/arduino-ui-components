@@ -3,9 +3,16 @@
 unsigned int Button::longPressTime{2000};
 unsigned int Button::debounceTime{20};
 
-Button::Button(uint8_t p) {
-    pin = p;
-    pinMode(p, INPUT);
+Button::Button(uint8_t p) : pin(p) {
+    // ToDo: support INPUT_PULLUP alternative
+    pinMode(pin, INPUT);
+}
+
+Button::Button(uint8_t p, uint8_t pinmode) : pin(p) {
+    if (pinmode != INPUT_PULLUP) {
+        pinmode = INPUT;
+    }
+    pinMode(pin, pinmode);
 }
 
 void Button::setPressedHandler(ButtonCallback fptr) {

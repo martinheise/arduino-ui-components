@@ -16,6 +16,8 @@ class Button {
 public:
     /// construct with pin number
     Button(uint8_t p);
+    /// construct with pin number and pin mode (INPUT or INPUT_PULLUP)
+    Button(uint8_t p, uint8_t pinmode);
     /// set current value
     void setValue(bool val);
     /// get current value
