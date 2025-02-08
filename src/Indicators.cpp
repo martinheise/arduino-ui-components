@@ -15,6 +15,7 @@ void Indicator::setStatus(Indicator::status s) {
     currStatus = s;
     switch (currStatus) {
         case ON:
+            // todo: is immediate switch necessary?
             switchOn();
             break;
         case BLINK:
