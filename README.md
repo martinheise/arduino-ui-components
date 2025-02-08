@@ -62,6 +62,31 @@ int value = control.getValue();
 
 For usage also see [Control example](examples/Control/Control.ino).
 
+
+### Rotary Control
+
+An incremental rotary control is used to select an integer value. The range of possible values as well as the increment can be defined.
+
+The class supports two different click-pulse-ratios depending on your hardware, e.g. 24 clicks / 24 pulses models (ratio 1) or 30 clicks / 15 pulses models (ratio 2) 
+
+```
+// initialize with clk pin, dt pin, min/max values and ratio:
+RotaryControl control{clkPin, dtPin, -100, 100, 2};
+...
+// set a change callback
+void controlValueChange(int value, byte id) {
+    // do something with value ...
+}
+control.setChangeHandler(controlValueChange, 1);
+...
+// directly get the current value 
+int value = control.getValue();
+```
+
+
+For usage also see [RotaryControl example](examples/RotaryControl/RotaryControl.ino).
+
+
 ### LED indicator
 
 An LED indicator controls the state of an LED connected to a digital output pin.
