@@ -15,6 +15,7 @@ void Indicator::setStatus(Indicator::status s) {
     currStatus = s;
     switch (currStatus) {
         case ON:
+            // todo: is immediate switch necessary?
             switchOn();
             break;
         case BLINK:
@@ -70,10 +71,15 @@ void Indicator::loop() {
     } else if (currStatus == FAST_BLINK) {
         state = (millis() - fastBlinkStart) % (fastBlinkOnTime + fastBlinkOffTime) < fastBlinkOnTime;
     }
-    if (state) {
-        switchOn();
-    } else {
-        switchOff();
+
+    if (state != switchState || forceUpdate) {
+        if (state) {
+            switchOn();
+        } else {
+            switchOff();
+        }
+        switchState = state;
+        forceUpdate = false;
     }
 }
 
@@ -119,9 +125,11 @@ RGBLedIndicator::rgbColor RGBLedIndicator::getColor() {
 
 void RGBLedIndicator::setColor(RGBLedIndicator::rgbColor c) {
     color = c;
+    forceUpdate = true;
 }
 
 void RGBLedIndicator::setColor(uint8_t r, uint8_t g, uint8_t b) {
+    forceUpdate = forceUpdate || color.r != r || color.g != g || color.b != b;
     color.r = r;
     color.g = g;
     color.b = b;
@@ -135,6 +143,6 @@ void RGBLedIndicator::switchOn() {
 
 void RGBLedIndicator::switchOff() {
     for (unsigned char p : pins) {
-        digitalWrite(p, LOW);
+        analogWrite(p, LOW);
     }
 }

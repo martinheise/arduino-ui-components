@@ -3,9 +3,21 @@
 unsigned int Button::longPressTime{2000};
 unsigned int Button::debounceTime{20};
 
-Button::Button(uint8_t p) {
-    pin = p;
-    pinMode(p, INPUT);
+Button::Button(uint8_t p) : pin(p) {
+    pinMode(pin, INPUT);
+}
+
+Button::Button(uint8_t p, uint8_t pinmode) : pin(p) {
+    _pressedRead = (pinmode & INVERTED_INPUT) > 0 || pinmode == INPUT_PULLUP;
+    pinmode = pinmode & 0x7F;
+#ifdef INPUT_PULLDOWN
+    if (pinmode != INPUT_PULLUP && pinmode != INPUT_PULLDOWN) {
+#else
+    if (pinmode != INPUT_PULLUP) {
+#endif
+        pinmode = INPUT;
+    }
+    pinMode(pin, pinmode);
 }
 
 void Button::setPressedHandler(ButtonCallback fptr) {
@@ -39,7 +51,8 @@ bool Button::isPressed() {
 }
 
 void Button::loop() {
-    int input = digitalRead(pin);
+    // read and consider _pressedRead
+    bool input = digitalRead(pin) xor _pressedRead;
 
     if (input != _lastState) {
         _debounceTimer = millis();
@@ -56,6 +69,7 @@ void Button::loop() {
             _longClickCallback(_longCallbackId);
             _timer = 0;
         }
+        // change value on button up
         if (!input && input != pressed) {
             value = !value;
         }

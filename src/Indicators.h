@@ -38,10 +38,14 @@ public:
     static unsigned int notificationBlinkTime;
     /// configuration: duration of singleFlash (ms)
     static unsigned int singleFlashTime;
-private:
+protected:
     status currStatus{OFF};
     virtual void switchOn();
     virtual void switchOff();
+    // remember last switch state, to update only on state changes
+    bool switchState{false};
+    // force a one-time update regardless of switch state
+    bool forceUpdate{true};
     // start time of notification blink
     unsigned long notificationBlinkStart{0};
     // start time of singleFlash

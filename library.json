@@ -1,6 +1,6 @@
 {
   "name": "UIComponents",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": "arduino, ui, button, led, control",
   "description": "A small toolset to simplify working with physical UI components like buttons, potentiometers and LED indicators",
   "authors": [
