@@ -23,6 +23,8 @@ public:
     RotaryControl(uint8_t pclk, uint8_t pdt);
     /// construct with pin number and min/max for output value range
     RotaryControl(uint8_t pclk, uint8_t pdt, int min, int max);
+    /// construct with pin number, min/max for output value range and click to pulse ratio
+    RotaryControl(uint8_t pclk, uint8_t pdt, int min, int max, byte cpr);
     /// set output value range
     void setMinMax(int min, int max);
     void setStep(int st);
@@ -49,6 +51,8 @@ private:
     int maxValue{255};
     int step{1};
     bool roundToStep{false};
+    // pulses per click, depending on hardware
+    byte clickPulseRatio{2};
     RotaryChangeCallback _changeCallback = nullptr;
     byte _callbackId{0};
 };

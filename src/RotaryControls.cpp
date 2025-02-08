@@ -12,6 +12,13 @@ RotaryControl::RotaryControl(uint8_t pclk, uint8_t pdt, int min, int max) : pinC
     prevClk = digitalRead(pinClk);
 }
 
+RotaryControl::RotaryControl(uint8_t pclk, uint8_t pdt, int min, int max, byte cpr) : pinClk(pclk), pinDt(pdt), minValue(min), maxValue(max), clickPulseRatio(cpr) {
+    pinMode(pclk, INPUT);
+    pinMode(pdt, INPUT);
+    clickPulseRatio = constrain(clickPulseRatio, 1, 2);
+    prevClk = digitalRead(pinClk);
+}
+
 void RotaryControl::setMinMax(int min, int max) {
     minValue = min;
     maxValue = max;
@@ -45,7 +52,7 @@ int RotaryControl::getValue() {
 void RotaryControl::loop() {
     int clk = digitalRead(pinClk);
 
-    if (clk != prevClk) {
+    if (clk != prevClk && (clk == HIGH || clickPulseRatio == 1)) {
         bool dir = digitalRead(pinDt) != clk;
         int val = value;
         if (dir) {
