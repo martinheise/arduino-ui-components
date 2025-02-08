@@ -7,7 +7,7 @@
  * callback function called on changed value
  * dir: true for clockwise (incrementing), false for counter-clockwise (decrementing)
  */
-using RotaryChangeCallback = void (*)(int value, byte id, bool dir);
+using RotaryChangeCallback = void (*)(int value, byte id);
 
 /*
  * ToDo:

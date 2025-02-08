@@ -68,7 +68,7 @@ void RotaryControl::loop() {
         if (val != value) {
             value = val;
             if (_changeCallback) {
-                _changeCallback(value, _callbackId, dir);
+                _changeCallback(value, _callbackId);
             }
         }
     }
